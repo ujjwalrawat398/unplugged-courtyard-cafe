@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unplugged Courtyard — Cafe & Brewery, Agra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --parchment:#d8cbb8;
+  --linen:#bfb4a3;
+  --warm-stone:#b6ab9c;
+  --walnut:#978e81;
+  --espresso:#615b53;
+  --onyx:#2c2c2c;
+  --midnight:#292622;
+  --saffron:#d49653;
+  --gold:#c9973a;
+  --neon-green:#39ff14;
+  --neon-teal:#00e5cc;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--midnight);
+  color:var(--parchment);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px clamp(20px,5vw,72px);
+  transition:background .3s,padding .3s;
+}
+nav.scrolled{
+  background:rgba(41,38,34,.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(180,171,156,.15);
+  padding:16px clamp(20px,5vw,72px);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:1.3rem;letter-spacing:.06em;
+  color:var(--parchment);
+}
+.nav-logo span{color:var(--saffron);}
+.nav-links{display:flex;gap:36px;}
+.nav-links a{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(216,203,184,.7);
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--parchment);}
+.nav-cta{
+  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid rgba(216,203,184,.4);
+  padding:10px 24px;color:var(--parchment);
+  transition:border-color .2s,background .2s;
+}
+.nav-cta:hover{border-color:var(--saffron);background:rgba(212,150,83,.1);}
+@media(max-width:640px){.nav-links{display:none;}}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  background:#0a0805;
+}
+#tubes-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(41,38,34,.3) 0%, rgba(41,38,34,.1) 50%, rgba(41,38,34,.85) 100%);
+}
+.hero-content{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:0 clamp(20px,5vw,80px);
+}
+.hero-eyebrow{
+  font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--saffron);margin-bottom:24px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';width:40px;height:1px;background:var(--saffron);opacity:.6;
+}
+.hero-wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;font-style:italic;
+  font-size:clamp(3.5rem,10vw,8rem);
+  line-height:.88;letter-spacing:-.02em;
+  color:var(--parchment);margin-bottom:12px;
+}
+.hero-wordmark span{color:var(--saffron);}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;font-size:clamp(1rem,2.5vw,1.6rem);
+  color:rgba(216,203,184,.6);letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:48px;
+}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-outline{
+  border:1px solid rgba(216,203,184,.5);
+  padding:16px 36px;
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--parchment);
+  transition:border-color .25s,background .25s;
+}
+.btn-outline:hover{border-color:var(--saffron);background:rgba(212,150,83,.1);}
+.btn-ghost{
+  padding:16px 36px;
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(216,203,184,.6);
+  border-bottom:1px solid rgba(216,203,184,.3);
+}
+.hero-rating{
+  position:absolute;bottom:48px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;
+  font-size:.72rem;letter-spacing:.1em;
+  color:rgba(216,203,184,.5);
+}
+.hero-stars{color:var(--saffron);letter-spacing:2px;}
+
+/* ── MARQUEE ── */
+.marquee{
+  background:var(--saffron);padding:14px 0;
+  overflow:hidden;white-space:nowrap;
+}
+.marquee-track{
+  display:inline-flex;gap:48px;
+  animation:marquee 30s linear infinite;
+}
+.marquee-track span{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:1.1rem;
+  color:var(--midnight);opacity:.9;
+}
+.marquee-track span::after{content:'✦';font-style:normal;margin-left:48px;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECTION ── */
+.section{padding:120px clamp(20px,5vw,72px);}
+.sec-divider{width:100%;height:1px;background:var(--warm-stone);opacity:.25;}
+.sec-label{
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--saffron);margin-bottom:16px;
+}
+.sec-heading{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;font-style:italic;
+  font-size:clamp(2.6rem,6vw,5rem);
+  line-height:.9;letter-spacing:-.02em;
+  color:var(--parchment);margin-bottom:20px;
+}
+.sec-body{
+  font-size:.9rem;line-height:1.75;
+  color:var(--walnut);max-width:480px;
+}
+
+/* ── ABOUT SPLIT ── */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;align-items:stretch;
+  max-width:1200px;margin:0 auto;
+}
+.about-img{height:580px;object-fit:cover;width:100%;filter:saturate(.85);}
+.about-text{
+  padding:80px 64px;background:var(--onyx);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.about-features{margin-top:36px;display:flex;flex-direction:column;gap:18px;}
+.af-row{
+  display:flex;align-items:flex-start;gap:16px;
+  padding-bottom:18px;border-bottom:1px solid rgba(183,171,156,.12);
+}
+.af-row:last-child{border-bottom:none;}
+.af-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--saffron);font-size:1.1rem;flex-shrink:0;width:24px;
+}
+.af-name{font-size:.82rem;font-weight:500;color:var(--parchment);margin-bottom:3px;letter-spacing:.02em;}
+.af-desc{font-size:.78rem;color:var(--walnut);line-height:1.5;}
+@media(max-width:720px){.about-grid{grid-template-columns:1fr;}.about-text{padding:48px 28px;}.about-img{height:300px;}}
+
+/* ── FOOD GALLERY — CardSwap style ── */
+.gallery-section{background:var(--midnight);}
+.gallery-intro{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:32px;flex-wrap:wrap;margin-bottom:72px;
+  max-width:1200px;margin-left:auto;margin-right:auto;
+}
+.card-stage{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:2px;
+}
+.food-card{position:relative;overflow:hidden;cursor:pointer;}
+.food-card img{
+  width:100%;height:320px;object-fit:cover;
+  filter:saturate(.8);
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94),filter .6s;
+}
+.food-card:hover img{transform:scale(1.06);filter:saturate(1);}
+.food-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(41,38,34,.85) 0%,transparent 55%);
+  opacity:0;transition:opacity .4s;
+}
+.food-card:hover .food-card-overlay{opacity:1;}
+.food-card-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px;transform:translateY(8px);
+  transition:transform .4s;
+}
+.food-card:hover .food-card-label{transform:translateY(0);}
+.fcl-name{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:1.3rem;color:var(--parchment);margin-bottom:4px;
+}
+.fcl-cat{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--saffron);}
+@media(max-width:640px){.card-stage{grid-template-columns:1fr;}}
+
+/* ── VIBE ── */
+.vibe{
+  background:var(--parchment);color:var(--onyx);
+}
+.vibe .sec-heading{color:var(--onyx);}
+.vibe .sec-body{color:var(--espresso);}
+.vibe .sec-label{color:var(--gold);}
+.vibe-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;border-top:1px solid var(--warm-stone);
+  max-width:1200px;margin:56px auto 0;
+}
+.vibe-item{
+  padding:40px 36px;
+  border-right:1px solid var(--warm-stone);
+  border-bottom:1px solid var(--warm-stone);
+}
+.vibe-item:nth-child(3n){border-right:none;}
+.vi-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:2.2rem;color:var(--gold);margin-bottom:14px;
+}
+.vi-name{font-size:.86rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;color:var(--onyx);}
+.vi-desc{font-size:.82rem;color:var(--espresso);line-height:1.65;}
+@media(max-width:640px){
+  .vibe-grid{grid-template-columns:1fr;}
+  .vibe-item{border-right:none;}
+}
+
+/* ── REVIEWS ── */
+.reviews-wrap{max-width:1200px;margin:0 auto;}
+.reviews-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:56px;gap:24px;flex-wrap:wrap;
+}
+.rating-big{text-align:right;}
+.rating-num{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:4rem;line-height:1;color:var(--parchment);
+}
+.rating-stars{color:var(--saffron);font-size:.9rem;letter-spacing:3px;margin:4px 0;}
+.rating-count{font-size:.72rem;letter-spacing:.1em;color:var(--walnut);text-transform:uppercase;}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.review-card{
+  padding:36px 28px;
+  border:1px solid rgba(183,171,156,.15);
+  border-right:none;
+  transition:background .3s;
+}
+.review-card:last-child{border-right:1px solid rgba(183,171,156,.15);}
+.review-card:hover{background:rgba(216,203,184,.04);}
+.rc-stars{color:var(--saffron);font-size:.8rem;letter-spacing:2px;margin-bottom:14px;}
+.rc-text{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:1.05rem;line-height:1.65;color:var(--parchment);
+  margin-bottom:20px;
+}
+.rc-author{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--walnut);}
+.rc-source{font-size:.68rem;color:var(--saffron);margin-top:3px;letter-spacing:.06em;}
+@media(max-width:720px){
+  .reviews-grid{grid-template-columns:1fr;}
+  .review-card{border-right:1px solid rgba(183,171,156,.15);}
+}
+
+/* ── CONTACT ── */
+.contact{background:var(--onyx);}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;max-width:1100px;margin:0 auto;
+  align-items:start;
+}
+.contact-info .info-row{
+  padding:22px 0;
+  border-bottom:1px solid rgba(183,171,156,.15);
+  display:flex;gap:20px;align-items:flex-start;
+}
+.ir-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--saffron);margin-bottom:5px;}
+.ir-val{font-size:.92rem;color:var(--parchment);line-height:1.5;}
+.contact-map{
+  background:rgba(216,203,184,.05);
+  border:1px solid rgba(183,171,156,.15);
+  padding:48px;
+  display:flex;flex-direction:column;gap:24px;
+}
+.contact-map h3{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:1.9rem;color:var(--parchment);margin-bottom:8px;
+}
+.contact-map p{font-size:.85rem;color:var(--walnut);line-height:1.7;margin-bottom:20px;}
+.btn-reserve{
+  display:inline-block;
+  background:var(--saffron);color:var(--midnight);
+  padding:16px 32px;
+  font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  transition:opacity .2s;width:fit-content;
+}
+.btn-reserve:hover{opacity:.85;}
+.hours-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:8px;
+}
+.hg-day{font-size:.76rem;color:var(--walnut);letter-spacing:.04em;}
+.hg-time{font-size:.76rem;color:var(--parchment);}
+@media(max-width:720px){
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--midnight);
+  padding:56px clamp(20px,5vw,72px) 36px;
+  border-top:1px solid rgba(183,171,156,.15);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:20px;
+}
+.fl-logo{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:1.1rem;color:var(--parchment);
+}
+.fl-logo span{color:var(--saffron);}
+.fl-links{display:flex;gap:28px;}
+.fl-links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--walnut);}
+.fl-links a:hover{color:var(--parchment);}
+.fl-copy{font-size:.7rem;color:var(--walnut);letter-spacing:.06em;}
+
+/* ── WA FLOAT ── */
+.wa{
+  position:fixed;bottom:28px;right:28px;z-index:300;
+  width:52px;height:52px;border-radius:50%;
+  background:#25d366;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  box-shadow:0 8px 24px rgba(37,211,102,.35);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Unplugged <span>Courtyard</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#food">Menu</a>
+    <a href="#vibe">Experience</a>
+    <a href="#contact">Visit</a>
+  </div>
+  <a href="tel:07060111954" class="nav-cta">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="tubes-canvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Cafe & Brewery — Agra</p>
+    <h1 class="hero-wordmark">Unplugged<br><span>Courtyard</span></h1>
+    <p class="hero-sub">Where good food meets open sky</p>
+    <div class="hero-actions">
+      <a href="#food" class="btn-outline">Explore the Menu</a>
+      <a href="#contact" class="btn-ghost">Find Us →</a>
+    </div>
+  </div>
+  <div class="hero-rating">
+    <span class="hero-stars">★★★★☆</span>
+    <span>4.2 · 1,097 Reviews · Google Maps</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Rooftop Dining</span>
+    <span>Craft Brewery</span>
+    <span>Live Music</span>
+    <span>Signature Cocktails</span>
+    <span>Open Kitchen</span>
+    <span>Courtyard Seating</span>
+    <span>Rooftop Dining</span>
+    <span>Craft Brewery</span>
+    <span>Live Music</span>
+    <span>Signature Cocktails</span>
+    <span>Open Kitchen</span>
+    <span>Courtyard Seating</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about" style="padding:0;">
+  <div class="about-grid">
+    <img class="about-img" src="img6.jpeg" alt="Unplugged Courtyard exterior">
+    <div class="about-text">
+      <p class="sec-label">Our Story</p>
+      <h2 class="sec-heading">A rooftop built for the unhurried evening</h2>
+      <p class="sec-body">Perched above Fatehabad Road, Unplugged Courtyard is Agra's most distinctive dining destination — where craft food, open-air ambience and an unhurried pace come together after 5 PM.</p>
+      <div class="about-features">
+        <div class="af-row">
+          <span class="af-num">01</span>
+          <div><div class="af-name">Rooftop Courtyard</div><div class="af-desc">Open-air seating with a full city view, live plants, and ambient lighting.</div></div>
+        </div>
+        <div class="af-row">
+          <span class="af-num">02</span>
+          <div><div class="af-name">Craft Brewery</div><div class="af-desc">In-house brewed selections alongside a thoughtful cocktail programme.</div></div>
+        </div>
+        <div class="af-row">
+          <span class="af-num">03</span>
+          <div><div class="af-name">Live Music</div><div class="af-desc">Regular live performances — the courtyard comes alive after sundown.</div></div>
+        </div>
+        <div class="af-row">
+          <span class="af-num">04</span>
+          <div><div class="af-name">Drive-Through & Delivery</div><div class="af-desc">Dine in, take away, or get it delivered — no-contact options available.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD -->
+<section class="section gallery-section" id="food">
+  <div class="gallery-intro">
+    <div>
+      <p class="sec-label">From the Kitchen</p>
+      <h2 class="sec-heading">Food that photographs<br>as well as it tastes</h2>
+    </div>
+    <p style="font-size:.85rem;color:var(--walnut);max-width:300px;line-height:1.7;">Hover over any dish to explore. Each plate is crafted with intent — from slow-cooked curries to open-flame skewers.</p>
+  </div>
+  <div class="card-stage">
+    <div class="food-card">
+      <img src="img1.jpeg" alt="Signature Curry">
+      <div class="food-card-overlay"></div>
+      <div class="food-card-label">
+        <div class="fcl-name">Signature Curry</div>
+        <div class="fcl-cat">Main Course</div>
+      </div>
+    </div>
+    <div class="food-card">
+      <img src="img2.jpeg" alt="Tandoor Platter">
+      <div class="food-card-overlay"></div>
+      <div class="food-card-label">
+        <div class="fcl-name">Tandoor Platter</div>
+        <div class="fcl-cat">Sharing</div>
+      </div>
+    </div>
+    <div class="food-card">
+      <img src="img3.jpeg" alt="Malai Skewer">
+      <div class="food-card-overlay"></div>
+      <div class="food-card-label">
+        <div class="fcl-name">Malai Skewer</div>
+        <div class="fcl-cat">Starters</div>
+      </div>
+    </div>
+    <div class="food-card">
+      <img src="img4.jpeg" alt="Night Courtyard">
+      <div class="food-card-overlay"></div>
+      <div class="food-card-label">
+        <div class="fcl-name">The Courtyard</div>
+        <div class="fcl-cat">Experience</div>
+      </div>
+    </div>
+    <div class="food-card">
+      <img src="img5.jpeg" alt="Garlic Bruschetta">
+      <div class="food-card-overlay"></div>
+      <div class="food-card-label">
+        <div class="fcl-name">Garlic Bruschetta</div>
+        <div class="fcl-cat">Appetisers</div>
+      </div>
+    </div>
+    <div class="food-card">
+      <img src="img6.jpeg" alt="Courtyard Evening">
+      <div class="food-card-overlay"></div>
+      <div class="food-card-label">
+        <div class="fcl-name">Evening Ambience</div>
+        <div class="fcl-cat">Rooftop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIBE -->
+<section class="section vibe" id="vibe">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="sec-label">The Experience</p>
+    <h2 class="sec-heading">More than a meal —<br>an evening well spent</h2>
+    <p class="sec-body">Everything at Unplugged is designed to make you stay a little longer, order one more round, and forget you have somewhere else to be.</p>
+  </div>
+  <div class="vibe-grid">
+    <div class="vibe-item">
+      <div class="vi-num">01</div>
+      <div class="vi-name">Open Rooftop</div>
+      <div class="vi-desc">A full rooftop courtyard setting with city views, trailing plants, and tables that fill up fast on weekends — arrive early or book ahead.</div>
+    </div>
+    <div class="vibe-item">
+      <div class="vi-num">02</div>
+      <div class="vi-name">Craft Drinks</div>
+      <div class="vi-desc">An in-house brewery alongside a cocktail list that leans into fresh ingredients — ginger, citrus, herbs — rather than house pours.</div>
+    </div>
+    <div class="vibe-item">
+      <div class="vi-num">03</div>
+      <div class="vi-name">Live Music Nights</div>
+      <div class="vi-desc">Regular live acts in the courtyard — from acoustic sets to louder Friday nights. Check the Facebook page for schedules.</div>
+    </div>
+    <div class="vibe-item">
+      <div class="vi-num">04</div>
+      <div class="vi-name">Curated Food</div>
+      <div class="vi-desc">A menu that mixes Chinese-inspired dishes with Indian street classics and open-flame cooking — something for every table dynamic.</div>
+    </div>
+    <div class="vibe-item">
+      <div class="vi-num">05</div>
+      <div class="vi-name">Dine In & Delivery</div>
+      <div class="vi-desc">Reserve a table for the full experience, or order online for home delivery — no-contact options available every evening.</div>
+    </div>
+    <div class="vibe-item">
+      <div class="vi-num">06</div>
+      <div class="vi-name">Opposite Trident</div>
+      <div class="vi-desc">Easy to find on Fatehabad Road, directly opposite Trident Hotel — central to Agra's best-known stretch, with parking nearby.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" style="background:var(--midnight);">
+  <div class="reviews-wrap">
+    <div class="reviews-header">
+      <div>
+        <p class="sec-label">What People Say</p>
+        <h2 class="sec-heading">Guests don't just visit once</h2>
+      </div>
+      <div class="rating-big">
+        <div class="rating-num">4.2</div>
+        <div class="rating-stars">★★★★☆</div>
+        <div class="rating-count">1,097 Reviews — Google Maps</div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"Best rooftop in Agra. The ambience after 8 PM is something else — lights, music, good food. We stayed for three hours."</p>
+        <div class="rc-author">Riya Sharma</div>
+        <div class="rc-source">Google Review</div>
+      </div>
+      <div class="review-card">
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"The Malai Tikka and the brewery selection are a match. Service was unhurried in the best way — no one rushed us out."</p>
+        <div class="rc-author">Arjun Mehta</div>
+        <div class="rc-source">Google Review</div>
+      </div>
+      <div class="review-card">
+        <div class="rc-stars">★★★★☆</div>
+        <p class="rc-text">"Genuinely the most aesthetic cafe in Agra right now. If you're visiting the city, this is the one dinner you should not skip."</p>
+        <div class="rc-author">Priya K.</div>
+        <div class="rc-source">Google Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div style="max-width:1100px;margin:0 auto 64px;">
+    <p class="sec-label">Come Visit</p>
+    <h2 class="sec-heading">Find your table</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="info-row">
+        <div><div class="ir-label">Address</div><div class="ir-val">2nd Floor, Arvind Innov8, Fatehabad Rd,<br>Opposite Trident Hotel, Agra — 282006</div></div>
+      </div>
+      <div class="info-row">
+        <div><div class="ir-label">Phone</div><div class="ir-val">070601 11954</div></div>
+      </div>
+      <div class="info-row">
+        <div>
+          <div class="ir-label">Hours</div>
+          <div class="hours-grid" style="margin-top:8px;">
+            <span class="hg-day">Monday – Friday</span><span class="hg-time">5:00 PM – 11:00 PM</span>
+            <span class="hg-day">Saturday – Sunday</span><span class="hg-time">12:00 PM – 11:00 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div><div class="ir-label">Social</div><div class="ir-val"><a href="https://www.facebook.com/unpluggedcourtyard.agra" target="_blank" style="color:var(--saffron);">facebook.com/unpluggedcourtyard.agra</a></div></div>
+      </div>
+    </div>
+    <div class="contact-map">
+      <h3>Reserve a Table</h3>
+      <p>Walk in after 5 PM or call ahead to hold a rooftop table — weekends fill up by 8 PM.</p>
+      <a href="tel:07060111954" class="btn-reserve">📞 Call to Reserve</a>
+      <a href="https://www.google.com/maps/place/Unplugged+Courtyard" target="_blank" style="font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--walnut);border-bottom:1px solid rgba(151,142,129,.3);padding-bottom:2px;width:fit-content;margin-top:8px;">Get Directions on Maps →</a>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<footer>
+  <div class="fl-logo">Unplugged <span>Courtyard</span></div>
+  <div class="fl-links">
+    <a href="#about">About</a>
+    <a href="#food">Menu</a>
+    <a href="#vibe">Experience</a>
+    <a href="#contact">Visit</a>
+  </div>
+  <div class="fl-copy">© 2026 Unplugged Courtyard, Agra</div>
+</footer>
+
+<a class="wa" href="https://wa.me/917060111954" target="_blank">💬</a>
+
+<script>
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Tubes hero
+  (async () => {
+    try {
+      const mod = await import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js');
+      mod.default(document.getElementById('tubes-canvas'), {
+        tubes: {
+          colors: ["#d49653", "#292622", "#c9973a"],
+          lights: {
+            intensity: 160,
+            colors: ["#d49653", "#8b5e2a", "#f5ead7", "#a07030"]
+          }
+        }
+      });
+    } catch(e) {
+      document.querySelector('.hero').style.background =
+        'linear-gradient(135deg, #0a0805 0%, #292622 60%, #0a0805 100%)';
+    }
+  })();
+</script>
+
+</body>
+</html>
